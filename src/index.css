@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+html, body {
+  background-color: RGB(245,245,255);
+  color: #353C43;
+  font-family: 'sansation-light', 'courier';
+  font-size: 12px;
+  margin: 0;
+  
+}
+
+.altoLogin{
+  height: 75vh;
+  min-height: 350px;
+  max-height: 550px;
+}
+
+
+
+
+
+@font-face{
+  font-family: 'sansation-light';
+  src: local('sansation-light'), url(./assets/fonts/sansation/Sansation_Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'sansation-regular';
+  src: local('sansation-regular'), url(./assets/fonts/sansation/Sansation_Regular.ttf) format('truetype');
+}
+.sansation-regular{
+  font-family: 'sansation-regular';
+}
+
