@@ -7,6 +7,8 @@
 
 
 html, body {
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
   background-color: RGB(245,245,255);
   color: #353C43;
   font-family: 'sansation-light', 'courier';
