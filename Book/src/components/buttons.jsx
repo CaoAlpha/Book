@@ -1,27 +1,27 @@
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export function ButtonMateDark(nombre:string, id:string, type='button') {
+export function ButtonMateDark(nombre, id, type='button') {
   return (
     <Button type={type} id={id} className="w-[95%] h-[40px] font-[sansation-regular] text-white bg-[#353C43] hover:bg-[#4C5660] rounded-full text-[15px] md:text-[1.2rem] xl:text-[1.3rem] py-2 text-center mr-2 mb-2 normal-case">{nombre}</Button>
     )
 }
 
-export function ButtonGradient(nombre:string, id:string, type='button') {
+export function ButtonGradient(nombre, id, type='button') {
   return (
     <Button type={type} id={id} className="w-[90%] h-[40px] md:w-[45%] md:h-[38px] xl:h-[3.5rem] font-[sansation-regular] text-white bg-gradient-to-r from-[#0094FF] to-[#00E0FF] hover:bg-gradient-to-bl rounded-full text-[15px] md:text-[1.2rem] xl:text-[1.3rem] py-2 text-center mr-2 mb-2 normal-case">{nombre}</Button>
   )
 }
 
-export function ButtonMateDarkRoute(nombre:string, id:string, ruta:string, type='button') {
+export function ButtonMateDarkRoute(nombre, id, ruta, type='button') {
   return (
     <Button type={type} id={id} className="w-[90%] h-[40px] md:w-[45%] md:h-[38px] xl:h-[3.5rem] font-[sansation-regular] text-white bg-[#353C43] hover:bg-[#4C5660] rounded-full text-[15px] md:text-[1.2rem] xl:text-[1.3rem] py-2 text-center mr-2 mb-2 normal-case"><Link to={ruta}>{nombre}</Link></Button>
     )
 }
 
-export function ButtonGradientRoute(nombre:string, id:string, ruta:string, type='button') {
+export function ButtonGradientRoute(nombre, id, ruta, type='button') {
   return (
-    <Button type={type} id={id} className="w-[90%] h-[40px] md:w-[45%] md:h-[38px] xl:h-[3.5rem] font-[sansation-regular] text-white bg-gradient-to-r from-[#0094FF] to-[#00E0FF] hover:bg-gradient-to-bl rounded-full text-[15px] md:text-[1.2rem] xl:text-[1.3rem] py-2 text-center mr-2 mb-2 normal-case"><Link to={ruta}>{nombre}</Link></Button>
+    <Link to={ruta} className="flex justify-center w-[90%] h-[40px] md:w-[45%] md:h-[38px] xl:h-[3.5rem] font-[sansation-regular] text-white bg-gradient-to-r from-[#0094FF] to-[#00E0FF] hover:bg-gradient-to-bl rounded-full text-[15px] md:text-[1.2rem] xl:text-[1.3rem] py-2 text-center mr-2 mb-2 normal-case"><Button type={type} id={id}>{nombre}</Button></Link>
   )
 }
 
@@ -45,7 +45,7 @@ export function CheckboxRippleEffect() {
   )
 }
 
-export function selectButton(id:string, nombre:string) {
+export function selectButton(id, nombre) {
   return (
     <Button type="button" className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
       <label className="relative flex items-center cursor-pointer p-5 rounded-full" htmlFor={id}>
@@ -63,4 +63,42 @@ export function selectButton(id:string, nombre:string) {
   )
 }
 
+export const buttonIcon = (id, imagen, style) => {
+  return(
+    <>
+      <Button type='button' id={id} className={`${style} flex items-center bg-transparent w-auto md:p-2`} ><img src={imagen}></img></Button>
+    </>
+  )
+}
 
+import React from "react";
+import {Menu, MenuHandler, MenuList, MenuItem} from "@material-tailwind/react";
+import { getAuth, signOut } from "firebase/auth"
+import { appFirebase } from "../firebase/credenciales"
+const auth = getAuth(appFirebase)
+export const buttonDropDown = (icon, lista, largo, ancho) => {
+  
+  const [openMenu, setOpenMenu] = React.useState(false);
+  return (
+    <Menu placement="bottom-end">
+      <MenuHandler>
+        <Button className="flex justify-center items-center md:h-[70%] rounded-md">
+          <img src={icon} className="h-[70%] w-[70%]"/>
+        </Button>
+      </MenuHandler>
+      <MenuList className={`${largo} ${ancho} rounded-[7px] text-[15px] flex flex-col justify-center`}>
+        <MenuItem className="text-right">{lista[0]}</MenuItem>
+        <MenuItem className="text-right">{lista[1]}</MenuItem>
+        <Menu
+          placement="right-start"
+          open={openMenu}
+          handler={setOpenMenu}
+          allowHover
+          offset={15}
+        >
+        </Menu>
+        <MenuItem onClick={()=> signOut(auth)} className="text-right">{lista[2]}</MenuItem>
+      </MenuList>
+    </Menu>
+  );
+}

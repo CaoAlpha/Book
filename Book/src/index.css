@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
-
 html, body {
   -webkit-text-size-adjust: none;
   -webkit-tap-highlight-color: transparent;
-  background-color: RGB(245,245,255);
+  background-color: #F2F2F2;
   color: #353C43;
   font-family: 'sansation-light', 'courier';
   font-size: 12px;
@@ -23,10 +19,6 @@ html, body {
   max-height: 550px;
 }
 
-
-
-
-
 @font-face{
   font-family: 'sansation-light';
   src: local('sansation-light'), url(./assets/fonts/sansation/Sansation_Light.ttf) format('truetype');
@@ -39,4 +31,3 @@ html, body {
 .sansation-regular{
   font-family: 'sansation-regular';
 }
-

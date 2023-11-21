@@ -1,8 +1,10 @@
+import Select from "react-select";
+
 export function InputForm(
-    type:string,
-    id:string,
-    placeholder:string,
-    img:string,
+    type,
+    id,
+    placeholder,
+    img,
   ) {
     return (
       <>
@@ -19,20 +21,22 @@ export function InputForm(
     );
   }
 
-export function dropDown(id:string, nombre:string, opciones:string[]){
-  let box = [];
-  for (let i = 0; i < opciones.length; i++) {
-    box.push(<option value={opciones[i]} className="font-[sansation-light]">{opciones[i]}</option>);
-  }
+export function dropDown(ide, opciones){
   
+  const selectChange = ({value}) => {
+    console.log({value});
+  }
+
   return(
-    <>
-      <label htmlFor={id} className="block mb-2 text-[1.2rem] font-[sansation-regular] text-[#353C43]">{nombre}</label>
-      <select id={id} className="bg-white border text[#353C43] text-[1.2rem] rounded-full focus:ring-blue-700 focus:border-blue-700 block flex-1 min-w-0 w-full border-neutral-400 p-3 font-[sansation-regular] mb-12">
-        <option selected>{nombre}</option>
-        {box}
-        
-      </select>
+    <>  
+      
+        <Select
+        id={ide}
+          defaultValue={{label:'Género', value:'genero'}}
+          options={opciones}
+          onChange={selectChange}
+        />
+      
     </>
   )
 }
