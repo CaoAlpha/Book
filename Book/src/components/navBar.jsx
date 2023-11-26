@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -6,7 +7,8 @@ import {
   IconButton,
   Collapse,
 } from "@material-tailwind/react";
-import { buttonDropDown, buttonIcon } from "./buttons";
+import {ButtonDropDown} from './buttons/ButtonDropDown'
+import { ButtonIcon } from "./buttons/ButtonIcon";
  
 export function NavbarDefault() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -24,7 +26,7 @@ export function NavbarDefault() {
       <section className="lg:hidden flex items-center gap-x-2 p-1 border-b-[1px] lg:border-b-0 cursor-pointer text-[#353C43] hover:bg-gray-50">
         <div className="flex items-center w-[35px] md:w-[45px] h-[35px] md:h-[45px] px-2">
           <a href="#">
-            {buttonIcon('homeMenu', 'src/assets/img/icons/menu/User_1.png', 'md:h-[70%] rounded-md')}
+            <ButtonIcon id='homeMenu' imagen='src/assets/img/icons/menu/User_1.png' style='md:h-[70%] rounded-md'/>
           </a>
         </div>
         <a className="text-[15px] hover:text-[#00E0FF]">Mi perfil</a>
@@ -33,25 +35,25 @@ export function NavbarDefault() {
       <section className="flex items-center gap-x-2 p-1 border-b-[1px] lg:border-b-0 text-[#353C43] hover:bg-gray-50">
         <div className="flex items-center w-[35px] md:w-[45px] h-[35px] md:h-[45px] px-2">
           <a href="#">
-            {buttonIcon('homeMenu', 'src/assets/img/icons/menu/Home.png', 'md:h-[70%] rounded-md')}
+            <ButtonIcon id='homeMenu' imagen='src/assets/img/icons/menu/Home.png' style='md:h-[70%] rounded-md'/>
           </a>
         </div>
-        <a className="text-[15px] cursor-pointer hover:text-[#00E0FF]">Inicio</a>
+        <a className="text-[15px] cursor-pointer hover:text-[#00E0FF]"><Link to='/'>Inicio</Link></a>
       </section>
 
       <section className="flex items-center gap-x-2 p-1 border-b-[1px] lg:border-b-0 text-[#353C43] hover:bg-gray-50">
         <div className="flex items-center w-[35px] md:w-[45px] h-[40px] md:h-[45px] px-2">
           <a href="#">
-            {buttonIcon('libraryMenu', 'src/assets/img/icons/menu/Books.png', 'md:h-[70%] rounded-md')}
+            <ButtonIcon id='libraryMenu' imagen='src/assets/img/icons/menu/Books.png' style='md:h-[70%] rounded-md'/>
           </a>
         </div>
-        <a className="text-[15px] cursor-pointer hover:text-[#00E0FF]">Mi bilioteca</a>
+        <a className="text-[15px] cursor-pointer hover:text-[#00E0FF]"><Link to='/MiBiblioteca'>Mi biblioteca</Link></a>
       </section>
 
       <section className="flex items-center gap-x-2 p-1 border-b-[1px] lg:border-b-0 text-[#353C43] hover:bg-gray-50">
         <div className="flex items-center w-[35px] md:w-[45px] h-[40px] md:h-[45px] px-2">
           <a href="#">
-            {buttonIcon('alarmMenu', 'src/assets/img/icons/menu/Alarm.png', 'md:h-[70%] rounded-md')}
+            <ButtonIcon id='alarmMenu' imagen='src/assets/img/icons/menu/Alarm.png' style='md:h-[70%] rounded-md'/>
           </a>
         </div>
         <a className="text-[15px] cursor-pointer hover:text-[#00E0FF]">Notificaciones</a>
@@ -60,7 +62,7 @@ export function NavbarDefault() {
       <section className="hidden lg:flex items-center gap-x-2 p-1 border-b-[1px] lg:border-b-0 text-[#353C43] hover:bg-gray-50">
         <div className="flex items-center w-[35px] md:w-[45px] h-[40px] md:h-[45px] px-2">
         <div>
-          {buttonDropDown('src/assets/img/icons/menu/ExpandArrow.png', ['Mi perfil','Configuraciones','Cerrar sesión'], 'h-[100px]', 'w-[150px]')}
+          {ButtonDropDown('src/assets/img/icons/menu/ExpandArrow.png', ['Mi perfil','Configuraciones','Cerrar sesión'], 'h-[100px]', 'w-[150px]')}
         </div>
         </div>
       </section>
@@ -68,10 +70,11 @@ export function NavbarDefault() {
   );
  
   return (
-    <Navbar className="px-10 py-2 lg:py-0 lg:px-20 rounded-none">
+    <div className="flex justify-center items-center w-full">
+    <Navbar className="max-w-[1800px] px-10 py-2 lg:py-0 lg:px-20 rounded-none top-0 sticky shadow">
       <div className="flex items-center justify-between h-[45px] lg:h-[60px]">
         <Typography as="a" href="#">
-          <Button type='button' className="flex mt-2 lg:mt-0 items-center w-full h-[40px] lg:h-[45px]"><img src='src\assets\img\logo\Logo1.png' alt="logo" className="w-auto h-full"/></Button>
+          <Button type='button' className="flex mt-2 lg:mt-0 items-center w-full h-[40px] lg:h-[45px] shadow-none"><img src='src\assets\img\logo\Logo1.png' alt="logo" className="w-auto h-full"/></Button>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         
@@ -99,5 +102,6 @@ export function NavbarDefault() {
         </div>
       </Collapse>
     </Navbar>
+    </div>
   );
 }

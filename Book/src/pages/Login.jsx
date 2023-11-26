@@ -1,8 +1,12 @@
-import { CheckboxRippleEffect, ButtonGradient, ButtonMateDarkRoute } from "../components/buttons";
+import { CheckboxRippleEffect } from "../components/buttons/CheckBoxRippleEffect";
+import { ButtonGradient } from "../components/buttons/ButtonGradient";
+import { ButtonMateDarkRoute } from "../components/buttons/ButtonMateDarkRoute";
 import {Link} from "react-router-dom";
 
 import { appFirebase } from "../firebase/credenciales";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const auth = getAuth(appFirebase)
 export const Login = () => {
@@ -15,16 +19,41 @@ export const Login = () => {
 
     try {
         await signInWithEmailAndPassword(auth, user, password)    
+        toast.success('¡Es grato tenerte de vuelta! :)',{
+          position:'top-center',
+          autoClose:2000,
+          hideProgressBar:true  ,
+          pauseOnHover: false,
+          closeOnClick:false,
+          draggable:true,
+          progress:undefined,
+          theme:"colored"
+        })
     } catch (error) {
-        alert('Usuario o contraseña incorrectos')
+      toast.error('Error: Usuario o contraseña incorrectos :|', {
+        position:'top-center',
+        autoClose:2000,
+        hideProgressBar:true  ,
+        pauseOnHover: false,
+        closeOnClick:false,
+        draggable:true,
+        progress:undefined,
+      });
     }
     
   }
 
   return (
+    <>
     
     <div className='flex flex-col bg-[url("./assets/img/fondos/fondoLoginVertical.png")] lg:bg-[url("./assets/img/fondos/fondoLogin.png")] bg-cover bg-scroll bg-center items-center justify-center min-w-[280px] min-h-screen py-5 lg:p-10'>
       <main className="flex flex-col items-center justify-center w-full text-center">
+        <div className="w-full">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }} className="flex justify-center">
+        
         <div className='bg-[#FAFAFF] rounded-xl shadow-[0px_0px_50px_10px_rgba(0,0,0,0.2)] w-[85%] min-w-[260px] flex sm:w-9/12 h-[80vw] md:h-[550px] md:w-[50%] lg:w-[78%] lg:h-[500px] xl:h-[670px] min-h-[500px] max-h-[720px] max-w-[1220px]'>   
           <div className='flex flex-col w-full h-full p-5 md:py-[20px] lg:py-[30px] lg:w-1/2 items-center'>  
 
@@ -73,7 +102,7 @@ export const Login = () => {
 
               <section className="w-[90%] md:w-[70%] mt-[0.5rem] xl:mt-[10px] flex items-center justify-between">
                   
-                {CheckboxRippleEffect()}
+                <CheckboxRippleEffect/>
                 <div className="items-end text-right">
                   <p className="flex flex-col text-[1rem] md:text-[1rem] xl:text-[1.1rem] hover:text-[#0094FF] mr-3 text-right"><a href="#">¿Olvidaste contraseña?</a></p>
                 </div>
@@ -81,8 +110,8 @@ export const Login = () => {
               </section>
 
               <section className="w-[90%] md:w-[72%] flex flex-col-reverse items-center justify-center md:flex-row md:justify-between mt-10 xl:mt-20">
-                {ButtonMateDarkRoute ('Crear cuenta', 'crearcuenta', '/Register', 'button')}
-                {ButtonGradient ('Iniciar sesión', 'iniciarSesion', 'submit')}
+                <ButtonMateDarkRoute nombre='Crear cuenta' id='crearcuenta' ruta='/Register' type='button'/>
+                <ButtonGradient nombre='Iniciar sesión' id='iniciarSesion' type='submit'/>
               </section>
 
             </form>
@@ -98,7 +127,11 @@ export const Login = () => {
           </div> {/*Presentación BOOK*/}          
 
         </div>
+        </motion.div>
+        </div>
       </main>
     </div>
+    
+    </>
   )
 }
