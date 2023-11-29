@@ -1,5 +1,4 @@
 import { Button } from "@material-tailwind/react"
-
 import { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../contex"
@@ -9,7 +8,7 @@ export const SearchForm = () => {
     const searchText = useRef('');
     const navigate = useNavigate();
 
-    useEffect(() => {searchText.current.focus(),[]})
+    useEffect(() => searchText.current.focus(),[]);
     const handleSubmit = (e) => {
         e.preventDefault();
         let tempSearchTerm = searchText.current.value.trim();
@@ -20,7 +19,7 @@ export const SearchForm = () => {
             setSearchTerm(searchText.current.value);
         }
 
-        navigate("/book")
+        navigate("/book");
     }
     return(
         <>

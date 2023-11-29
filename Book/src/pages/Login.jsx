@@ -121,7 +121,7 @@ export const Login = () => {
           <div className='hidden lg:flex flex-col lg:w-1/2 bg-[url("./assets/img/fondos/fondoLoginRight.png")] bg-cover bg-center rounded-r-xl xl:py-[30px] xl:px-[20px] text-white items-center justify-center'>
             <div className="w-full h-full flex flex-col items-center justify-end space-y-3 p-10 my-[5rem] xl:my-[150px]">
               <div className='bg-[url("./assets/img/logo/Logo2.png")] w-full h-[10vw] mb-[10px] max-h-[150px] bg-contain bg-no-repeat bg-center'></div>
-              <p className="text-[1.2rem] xl:text-[1.5rem] leading-[30px]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem blanditiis quas asperiores natus maiores iste repudiandae totam explicabo ea consequuntur.</p> 
+              <p className="text-[1.2rem] xl:text-[1.5rem] leading-[30px]">¡Descubre, comparte y conecta con la vibrante comunidad literaria que hemos creado para ti!</p> 
             </div>
 
           </div> {/*Presentación BOOK*/}          

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { RaitingStart } from "../components/Rating"
-import { SelectItem } from "./inputForm/SelectItem"
 
 export const TarjetaBook = ({genero, titulo, autor, imagen}) => {
 
@@ -17,8 +16,6 @@ export const TarjetaBook = ({genero, titulo, autor, imagen}) => {
                         <h2>Calificación general: 8.2</h2>
                     </div>
                 </section>
-
-                <SelectItem/>
             </div>
         </div>
     )

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
-import { DropDown } from "../components/inputForm/DropDown";
 import { Input } from "../components/inputForm/Input";
 import { SelectButton } from "../components/buttons/SelectButton";
 import { appFirebase } from "../firebase/credenciales";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { Button } from "@material-tailwind/react";
+import Select from "react-select";
 
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -27,7 +27,7 @@ export const Register = () => {
     const confirmarcontraseña = e.target.txtContraseñaR2.value;
     
     if (contraseña != confirmarcontraseña){
-      toast.warning('Verifique que las contraseñas coincidan, no sea pendejo',{
+      toast.warning('Las contraseñas no coinciden',{
         position:'bottom-center',
         autoClose:4000,
         hideProgressBar:true  ,
@@ -40,12 +40,12 @@ export const Register = () => {
     }else{
           try {
           
-              const infoUsuario = await createUserWithEmailAndPassword(auth, usuario, contraseña, nombre, apellido, telefono, fechaNacimiento);
+              const infoUsuario = await createUserWithEmailAndPassword(auth, usuario, contraseña, nombre, apellido, telefono, fechaNacimiento, preferencias);
               console.log(infoUsuario.user.uid);
               console.log(infoUsuario.user)
               const docRef = await doc(firestore, `usuarios/${infoUsuario.user.uid}`);
               
-              setDoc(docRef, {Nombre:nombre, Apellido:apellido, Teléfono:telefono, Nacimiento:fechaNacimiento})
+              setDoc(docRef, {Nombre:nombre, Apellido:apellido, Teléfono:telefono, Nacimiento:fechaNacimiento, Preferencias:preferencias})
               toast.success('¡Bienvenido! :)',{
                 position:'top-center',
                 autoClose:2000,
@@ -71,6 +71,11 @@ export const Register = () => {
           
     }
   }
+
+  const selectChange = ({value}) => {
+    console.log({value});
+  }
+  console.log(selectChange)
   
   const generos = [
     {label: 'Masculino', value:'masculino'},
@@ -93,47 +98,48 @@ export const Register = () => {
   const [valor13, setValor13] = useState(false)
 
   if(valor1){
-    preferencias.push('Opcion1')
+    preferencias.push('Aventuras')
   }
   if(valor2){
-    preferencias.push('Opcion2')
+    preferencias.push('Ciencia ficción')
   }
   if(valor3){
-    preferencias.push('Opcion3')
+    preferencias.push('Policíaca')
   }
   if(valor4){
-    preferencias.push('Opcion4')
+    preferencias.push('Terror y misterio')
   }
   if(valor5){
-    preferencias.push('Opcion5')
+    preferencias.push('Romántica')
   }
   if(valor6){
-    preferencias.push('Opcion6')
+    preferencias.push('Humor')
   }
   if(valor7){
-    preferencias.push('Opcion7')
+    preferencias.push('Poesía')
   }
   if(valor8){
-    preferencias.push('Opcion8')
+    preferencias.push('Mitología')
   }
   if(valor9){
-    preferencias.push('Opcion9')
+    preferencias.push('Cuentos')
   }
   if(valor10){
-    preferencias.push('Opcion10')
+    preferencias.push('Teatro')
   }
   if(valor11){
-    preferencias.push('Opcion11')
+    preferencias.push('Clásicos universales')
   }
   if(valor12){
-    preferencias.push('Opcion12')
+    preferencias.push('Literatura contemporánea')
   }
   if(valor13){
-    preferencias.push('Opcion13')
+    preferencias.push('Biografías y memorias')
   }
 
  
   console.log(preferencias)
+  console.log(document.getElementById('selectGender'))
  
   return (
    <div className='flex flex-around bg-[url("./assets/img/fondos/fondoRegistro.png")] bg-cover bg-center items-center justify-center min-w-[280px] min-h-screen py-5 overflow-auto'>
@@ -198,7 +204,13 @@ export const Register = () => {
 
                 <div className="flex justify-center space-y-5 lg:space-y-0">
                   <div className="w-[100%]">
-                    {DropDown('selectGenderR', generos)}
+                  <Select
+        id='selectGender'
+          defaultValue={{label:'Género', value:'genero'}}
+          options={generos}
+          onChange={selectChange}
+          
+        />
                   </div>
 
                 </div>
@@ -209,55 +221,55 @@ export const Register = () => {
 
                 <div className="flex flex-wrap justify-between">
                   <Button onChange={() => valor1?setValor1(false):setValor1(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion1R' nombre='Opcion 1'/>
+                    <SelectButton id='opcion1R' nombre='Aventuras'/>
                   </Button>
                   <Button onChange={() => valor2?setValor2(false):setValor2(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion2R' nombre='Opcion 2'/>
+                    <SelectButton id='opcion2R' nombre='Ciencia ficción'/>
                   </Button>
                   <Button onChange={() => valor3?setValor3(false):setValor3(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion3R' nombre='Opcion 3'/>
+                    <SelectButton id='opcion3R' nombre='Policíaca'/>
                   </Button>
                   <Button onChange={() => valor4?setValor4(false):setValor4(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion4R' nombre='Opcion 4'/>
+                    <SelectButton id='opcion4R' nombre='Terror y misterio'/>
                   </Button>
                   
                 </div>
                 
                 <div className="flex flex-wrap justify-evenly">
                   <Button onChange={() => valor5?setValor5(false):setValor5(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion5R' nombre='Opcion 5'/>
+                    <SelectButton id='opcion5R' nombre='Romántica'/>
                   </Button>
                   <Button onChange={() => valor6?setValor6(false):setValor6(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion6R' nombre='Opcion 6'/>
+                    <SelectButton id='opcion6R' nombre='Humor'/>
                   </Button>
                   <Button onChange={() => valor7?setValor7(false):setValor7(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion7R' nombre='Opcion 7'/>
+                    <SelectButton id='opcion7R' nombre='Poesía'/>
                   </Button>
                   
                 </div>
 
                 <div className="flex flex-wrap justify-between">
                   <Button onChange={() => valor8?setValor8(false):setValor8(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion8R' nombre='Opcion 8'/>
+                    <SelectButton id='opcion8R' nombre='Mitología'/>
                   </Button>
                   <Button onChange={() => valor9?setValor9(false):setValor9(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion9R' nombre='Opcion 9'/>
+                    <SelectButton id='opcion9R' nombre='Cuentos'/>
                   </Button>
                   <Button onChange={() => valor10?setValor10(false):setValor10(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion10R' nombre='Opcion 10'/>
+                    <SelectButton id='opcion10R' nombre='Teatro'/>
                   </Button>
                   <Button onChange={() => valor11?setValor11(false):setValor11(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion11R' nombre='Opcion 11'/>
+                    <SelectButton id='opcion11R' nombre='Clásicos universales'/>
                   </Button>
                   
                 </div>
 
                 <div className="flex flex-wrap justify-evenly">
                   <Button onChange={() => valor12?setValor12(false):setValor12(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion12R' nombre='Opcion 12'/>
+                    <SelectButton id='opcion12R' nombre='Literatura contemporánea'/>
                   </Button>
                   <Button onChange={() => valor13?setValor13(false):setValor13(true)} className="flex items-center justify-center border-2 border-gray-100 hover:border-l-[#0094FF] bg-gray-100 h-[40px] w-[140px] rounded-full px-5 mb-[15px]">
-                    <SelectButton id='opcion13R' nombre='Opcion 13'/>
+                    <SelectButton id='opcion13R' nombre='Biografías y memorias'/>
                   </Button>
                   
                   
